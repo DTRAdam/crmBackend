@@ -21,10 +21,10 @@ router.post("/register", async (req, res) => {
 				.send("A user with this email already exists, Please Log in instead");
 
 		// hash password
-		user.password = bcryptJs.hashSync(user.password, 10)
+		const hashedPassword = bcryptJs.hashSync(req.body.password, 10)
 
 		// create new user
-		const newUsers = new Users(user);
+		const newUsers = new Users({ ...req.body, password: hashedPassword });
 		// save user
 		await newUsers.save();
 
@@ -35,6 +35,7 @@ router.post("/register", async (req, res) => {
 		// send result
 	} catch (error) {
 		res.status(500).send(error.message);
+		console.log(req.body.password);
 	}
 });
 
