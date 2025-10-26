@@ -1,42 +1,47 @@
-const mongoose = require("mongoose")
-const UserSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    profile: {
-        firstName: String,
-        lastName: String,
-        avatar: String,
-        phone: String,
-        department: String,
-        position: String
-    },
-    role: {
-        type: ObjectId,
-        ref: 'Role',
-        required: true
-    },
-    permissions: [String], // Manage users permissions
-    isActive: {
-        type: Boolean,
-        default: true
-    },
-    lastLogin: Date,
-    createdAt: {
-        type: Date,
-        default: Date.now
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now
-    }
-})
+const mongoose = require("mongoose");
 
-module.exports = mongoose.model("Users", UserSchema)
+const UserSchema = new mongoose.Schema(
+	{
+		email: {
+			type: String,
+			required: true,
+			unique: true,
+		},
+		password: {
+			type: String,
+			required: true,
+		},
+		profile: {
+			firstName: {type: String, required: true},
+			lastName: {type: String, required: true},
+			avatar: {
+				url: {type: String},
+				alt: {type: String},
+			},
+			phone: {type: String, required: true, unique: true},
+			position: {type: String},
+			address: {
+				type: {
+					city: {type: String, required: true},
+					street: {type: String},
+					houseNo: {type: String},
+					zipCode: {type: String, required: true},
+				},
+			},
+		},
+		role: {
+			type: String,
+			enum: ["Admin", "customer", "customer support", "seller"],
+			required: true,
+		},
+		// permissions: {enum: ["Admin","customer","customer"]}, // Manage users permissions
+		isActive: {
+			type: Boolean,
+			default: true,
+		},
+		lastLogin: {type: Date},
+	},
+	{timestamps: true},
+);
+
+module.exports = mongoose.model("Users", UserSchema);
