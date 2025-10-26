@@ -1,10 +1,7 @@
 const joi = require("joi");
 const registerSchema = joi.object({
     email: joi.string().required(),
-    password: joi.string().min(8).required().pattern(
-        /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8}$/,
-        "the password must be 8 characters length 2 letters in Upper Case 1 Special Character (!@#$&*) 2 numerals (0-9) 3 letters in Lower Case",
-    ),
+    password: joi.string().min(8).required(),
     profile: joi.object({
         firstName: joi.string().required(),
         lastName: joi.string().required(),
