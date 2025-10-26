@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
 				.send("A user with this email already exists, Please Log in instead");
 
 		// hash password
-		user.password = bcrypt.hashSync(user.password, 10)
+		user.password = bcryptJs.hashSync(user.password, 10)
 
 		// create new user
 		const newUsers = new Users(user);
