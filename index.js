@@ -41,8 +41,9 @@ mongoose
 	.then(() => {
 		console.log(chalk.blue("connected to mongoDB"));
 	})
-	.catch(() => {
-		console.log(chalk.red("could'nt connected to mongoDB"));
+	.catch((err) => {
+		console.log(chalk.red("couldn't connect to mongoDB"));
+		console.error(err);
 	});
 
 // routes
