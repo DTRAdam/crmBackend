@@ -13,7 +13,11 @@ const productSchema = joi.object({
 	}),
 	sales: joi.object({
 		isSale: joi.boolean().required(),
-		discount: joi.number(),
+		discount: joi.number().min(0).max(100).when("isSale", {
+			is: true,
+			then: joi.required(),
+			otherwise: joi.forbidden(),
+		}),
 	}),
 });
 
